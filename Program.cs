@@ -117,23 +117,63 @@ class Program
     {
         try
         {
-            if(target < 0 || target > 9) // Out of range
+            if (target < 0 || target > 9) // Out of range
             {
                 throw new ArgumentOutOfRangeException("Error: Target number must be between 0 and 9.");
             }
 
-            foreach(int i in numbers.Keys)
+            foreach (int i in numbers.Keys)
             {
-                if(((i / 10) % 10) != target && (i % 10) != target)
+                if (((i / 10) % 10) != target && (i % 10) != target)
                 {
                     numbers[i] = false;
                 }
             }
-        } catch(Exception e)
+        }
+        catch (Exception e)
         {
             Console.WriteLine(e.Message);
         }
     }
+    static void ThreeNumberSequence(Digit digitPlace, int target)
+    {
+        try
+        {
+            if (target < 0 || target > 7) // Out of range
+            {
+                throw new ArgumentOutOfRangeException("Error: Target number must be between 0 and 7.");
+            }
+
+            switch (digitPlace)
+            {
+                case Digit.First:
+                    foreach (int i in numbers.Keys)
+                    {
+                        if (((i / 10) % 10) != target && ((i / 10) % 10) != target + 1 && ((i / 10) % 10) != target + 2)
+                        {
+                            numbers[i] = false;
+                        }
+                    }
+                    break;
+                case Digit.Second:
+                    foreach (int i in numbers.Keys)
+                    {
+                        if ((i % 10) != target && (i % 10) != target + 1 && (i % 10) != target + 2)
+                        {
+                            numbers[i] = false;
+                        }
+                    }
+                    break;
+                default:
+                    throw new ArgumentException("Error: Invalid digit placement.");
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+    }
+
     static void ResetArray()
     {
         for (int i = 10; i < 100; i++)
@@ -141,6 +181,7 @@ class Program
             numbers[i] = true;
         }
     }
+
     static void Main(string[] args)
     {
         ResetArray();
