@@ -174,6 +174,44 @@ class Program
         }
     }
 
+    static int FindMedian()
+    {
+        int numTrue = 0;
+
+        foreach (int i in numbers.Keys)
+        {
+            if (numbers[i] == true)
+            {
+                numTrue++;
+            }
+        }
+
+        int[] trueItems = new int[numTrue];
+        int index = 0;
+
+        foreach (int i in numbers.Keys)
+        {
+            if (numbers[i] == true)
+            {
+                trueItems[index] = i;
+                index++;
+            }
+        }
+
+        Array.Sort(trueItems);
+        int size = trueItems.Length;
+        int mid = size / 2;
+
+        if (size % 2 != 0)
+        {
+            return trueItems[mid];
+        }
+        else
+        {
+            return trueItems[mid - 1];
+        }
+    }
+
     static void ResetArray()
     {
         for (int i = 10; i < 100; i++)
