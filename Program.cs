@@ -11,65 +11,79 @@ enum Digit
 
 class Program
 {
-    static Dictionary<int,bool> numbers = new Dictionary<int, bool>();
+    static Dictionary<int, bool> numbers = new Dictionary<int, bool>();
 
     static void Odd(Digit digitPlace) // Odd digits are good, so mark evens as false
     {
-        switch(digitPlace)
+        try
         {
-            case Digit.First:
-                foreach(int i in numbers.Keys)
-                {
-                    if(((i / 10) % 10) % 2 == 0)
+            switch (digitPlace)
+            {
+                case Digit.First:
+                    foreach (int i in numbers.Keys)
                     {
-                        numbers[i] = false;
-                        Console.WriteLine(i + " is " + numbers[i]);
+                        if (((i / 10) % 10) % 2 == 0)
+                        {
+                            numbers[i] = false;
+                        }
                     }
-                }
-                break;
-            case Digit.Second:
-                foreach(int i in numbers.Keys)
-                {
-                    if((i % 10) % 2 == 0)
+                    break;
+                case Digit.Second:
+                    foreach (int i in numbers.Keys)
                     {
-                        numbers[i] = false;
-                        Console.WriteLine(i + " is " + numbers[i]);
+                        if ((i % 10) % 2 == 0)
+                        {
+                            numbers[i] = false;
+                        }
                     }
-                }
-                break;
+                    break;
+                default:
+                    throw new ArgumentException("Error: Invalid digit placement.");
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
         }
     }
 
 
-    static void Even(Digit digitPlace) // Odd digits are good, so mark evens as false
+    static void Even(Digit digitPlace) // Even digits are good, so mark odds as false
     {
-        switch(digitPlace)
+        try
         {
-            case Digit.First:
-                foreach(int i in numbers.Keys)
-                {
-                    if(((i / 10) % 10) % 2 == 1)
+            switch (digitPlace)
+            {
+                case Digit.First:
+                    foreach (int i in numbers.Keys)
                     {
-                        numbers[i] = false;
-                        Console.WriteLine(i + " is " + numbers[i]);
+                        if (((i / 10) % 10) % 2 == 1)
+                        {
+                            numbers[i] = false;
+                        }
                     }
-                }
-                break;
-            case Digit.Second:
-                foreach(int i in numbers.Keys)
-                {
-                    if((i % 10) % 2 == 1)
+                    break;
+                case Digit.Second:
+                    foreach (int i in numbers.Keys)
                     {
-                        numbers[i] = false;
-                        Console.WriteLine(i + " is " + numbers[i]);
+                        if ((i % 10) % 2 == 1)
+                        {
+                            numbers[i] = false;
+                        }
                     }
-                }
-                break;
+                    break;
+                default:
+                    throw new ArgumentException("Error: Invalid digit placement.");
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
         }
     }
     static void ResetArray()
     {
-        for(int i = 10; i < 100; i++)
+        for (int i = 10; i < 100; i++)
         {
             numbers[i] = true;
         }
