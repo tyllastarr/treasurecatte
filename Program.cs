@@ -3,23 +3,17 @@ using System.Collections.Generic;
 
 namespace TreasureCatte;
 
-enum Digit
-{
-    First,
-    Second
-}
-
 class Program
 {
     static Dictionary<int, bool> numbers = new Dictionary<int, bool>();
 
-    static void Odd(Digit digitPlace) // Odd digits are good, so mark evens as false
+    static void Odd(int digitPlace) // Odd digits are good, so mark evens as false
     {
         try
         {
             switch (digitPlace)
             {
-                case Digit.First:
+                case 1:
                     foreach (int i in numbers.Keys)
                     {
                         if (((i / 10) % 10) % 2 == 0)
@@ -28,7 +22,7 @@ class Program
                         }
                     }
                     break;
-                case Digit.Second:
+                case 2:
                     foreach (int i in numbers.Keys)
                     {
                         if ((i % 10) % 2 == 0)
@@ -38,7 +32,7 @@ class Program
                     }
                     break;
                 default:
-                    throw new ArgumentException("Error: Invalid digit placement.");
+                    throw new ArgumentOutOfRangeException("Error: Invalid digit placement.");
             }
         }
         catch (Exception e)
@@ -48,13 +42,13 @@ class Program
     }
 
 
-    static void Even(Digit digitPlace) // Even digits are good, so mark odds as false
+    static void Even(int digitPlace) // Even digits are good, so mark odds as false
     {
         try
         {
             switch (digitPlace)
             {
-                case Digit.First:
+                case 1:
                     foreach (int i in numbers.Keys)
                     {
                         if (((i / 10) % 10) % 2 == 1)
@@ -63,7 +57,7 @@ class Program
                         }
                     }
                     break;
-                case Digit.Second:
+                case 2:
                     foreach (int i in numbers.Keys)
                     {
                         if ((i % 10) % 2 == 1)
@@ -73,7 +67,7 @@ class Program
                     }
                     break;
                 default:
-                    throw new ArgumentException("Error: Invalid digit placement.");
+                    throw new ArgumentOutOfRangeException("Error: Invalid digit placement.");
             }
         }
         catch (Exception e)
@@ -135,7 +129,7 @@ class Program
             Console.WriteLine(e.Message);
         }
     }
-    static void ThreeNumberSequence(Digit digitPlace, int target)
+    static void ThreeNumberSequence(int digitPlace, int target)
     {
         try
         {
@@ -146,7 +140,7 @@ class Program
 
             switch (digitPlace)
             {
-                case Digit.First:
+                case 1:
                     foreach (int i in numbers.Keys)
                     {
                         if (((i / 10) % 10) != target && ((i / 10) % 10) != target + 1 && ((i / 10) % 10) != target + 2)
@@ -155,7 +149,7 @@ class Program
                         }
                     }
                     break;
-                case Digit.Second:
+                case 2:
                     foreach (int i in numbers.Keys)
                     {
                         if ((i % 10) != target && (i % 10) != target + 1 && (i % 10) != target + 2)
@@ -165,7 +159,7 @@ class Program
                     }
                     break;
                 default:
-                    throw new ArgumentException("Error: Invalid digit placement.");
+                    throw new ArgumentOutOfRangeException("Error: Invalid digit placement.");
             }
         }
         catch (Exception e)
