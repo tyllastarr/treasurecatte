@@ -81,6 +81,37 @@ class Program
             Console.WriteLine(e.Message);
         }
     }
+
+    static void BetweenNumbers(int lowerBound, int upperBound)
+    {
+        try
+        {
+            if (lowerBound < 10 || lowerBound > 99) // Check to see if lower bound is out of range
+            {
+                throw new ArgumentOutOfRangeException("Error: Lower bound must be between 10 and 99.");
+            }
+            if (upperBound < 10 || upperBound > 99) // Check to see if upper bound is out of range
+            {
+                throw new ArgumentOutOfRangeException("Error: Upper bound must be between 10 and 99.");
+            }
+
+            foreach (int i in numbers.Keys)
+            {
+                if (i < lowerBound)
+                {
+                    numbers[i] = false;
+                }
+                if (i > upperBound)
+                {
+                    numbers[i] = false;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+    }
     static void ResetArray()
     {
         for (int i = 10; i < 100; i++)
