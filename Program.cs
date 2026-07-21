@@ -112,6 +112,28 @@ class Program
             Console.WriteLine(e.Message);
         }
     }
+
+    static void OneDigitIsNumber(int target)
+    {
+        try
+        {
+            if(target < 0 || target > 9) // Out of range
+            {
+                throw new ArgumentOutOfRangeException("Error: Target number must be between 0 and 9.");
+            }
+
+            foreach(int i in numbers.Keys)
+            {
+                if(((i / 10) % 10) != target && (i % 10) != target)
+                {
+                    numbers[i] = false;
+                }
+            }
+        } catch(Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+    }
     static void ResetArray()
     {
         for (int i = 10; i < 100; i++)
@@ -121,6 +143,7 @@ class Program
     }
     static void Main(string[] args)
     {
+        ResetArray();
         Console.WriteLine("Hello, World!");
     }
 }
