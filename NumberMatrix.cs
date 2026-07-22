@@ -20,8 +20,35 @@ class NumberMatrix
             for(int secondDigit = 0; secondDigit <= 9; secondDigit++)
             {
                 currentNumber = (firstDigit * 10) + secondDigit;
-                // TODO: Calculate X and Y coordinates, then add to dictionary
+                matrix[currentNumber] = new PossibleNumber(currentX, currentY);
+                currentX += 3;
             }
+            currentY++;
         }
+    }
+
+    public int getXCoord(int key)
+    {
+        return matrix[key].X;
+    }
+    public int getYCoord(int key)
+    {
+        return matrix[key].Y;
+    }
+    public bool getPossible(int key)
+    {
+        return matrix[key].Possible;
+    }
+    public void setXCoord(int key, int coord)
+    {
+        matrix[key].X = coord;
+    }
+    public void setYCoord(int key, int coord)
+    {
+        matrix[key].Y = coord;
+    }
+    public void setPossible(int key, bool isValid)
+    {
+        matrix[key].Possible = isValid;
     }
 }
