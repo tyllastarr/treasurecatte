@@ -2,7 +2,6 @@
 
 class Program
 {
-    static Dictionary<int, bool> numbers = new Dictionary<int, bool>(); // TODO: Get rid of this
     static NumberMatrix matrix = new NumberMatrix();
 
     static void Odd(int digitPlace) // Odd digits are good, so mark evens as false
@@ -12,20 +11,20 @@ class Program
             switch (digitPlace)
             {
                 case 1:
-                    foreach (int i in numbers.Keys)
+                    for (int i = 10; i <= 99; i++)
                     {
                         if (((i / 10) % 10) % 2 == 0)
                         {
-                            numbers[i] = false;
+                            matrix.setPossible(i, false);
                         }
                     }
                     break;
                 case 2:
-                    foreach (int i in numbers.Keys)
+                    for (int i = 10; i <= 99; i++)
                     {
                         if ((i % 10) % 2 == 0)
                         {
-                            numbers[i] = false;
+                            matrix.setPossible(i, false);
                         }
                     }
                     break;
@@ -47,20 +46,20 @@ class Program
             switch (digitPlace)
             {
                 case 1:
-                    foreach (int i in numbers.Keys)
+                    for (int i = 10; i <= 99; i++)
                     {
                         if (((i / 10) % 10) % 2 == 1)
                         {
-                            numbers[i] = false;
+                            matrix.setPossible(i, false);
                         }
                     }
                     break;
                 case 2:
-                    foreach (int i in numbers.Keys)
+                    for (int i = 10; i <= 99; i++)
                     {
                         if ((i % 10) % 2 == 1)
                         {
-                            numbers[i] = false;
+                            matrix.setPossible(i, false);
                         }
                     }
                     break;
@@ -87,15 +86,15 @@ class Program
                 throw new ArgumentOutOfRangeException("Error: Upper bound must be between 10 and 99.");
             }
 
-            foreach (int i in numbers.Keys)
+            for (int i = 10; i <= 99; i++)
             {
                 if (i < lowerBound)
                 {
-                    numbers[i] = false;
+                    matrix.setPossible(i, false);
                 }
                 if (i > upperBound)
                 {
-                    numbers[i] = false;
+                    matrix.setPossible(i, false);
                 }
             }
         }
@@ -114,11 +113,11 @@ class Program
                 throw new ArgumentOutOfRangeException("Error: Target number must be between 0 and 9.");
             }
 
-            foreach (int i in numbers.Keys)
+            for (int i = 10; i <= 99; i++)
             {
                 if (((i / 10) % 10) != target && (i % 10) != target)
                 {
-                    numbers[i] = false;
+                    matrix.setPossible(i, false);
                 }
             }
         }
@@ -139,20 +138,20 @@ class Program
             switch (digitPlace)
             {
                 case 1:
-                    foreach (int i in numbers.Keys)
+                    for (int i = 10; i <= 99; i++)
                     {
                         if (((i / 10) % 10) != target && ((i / 10) % 10) != target + 1 && ((i / 10) % 10) != target + 2)
                         {
-                            numbers[i] = false;
+                            matrix.setPossible(i, false);
                         }
                     }
                     break;
                 case 2:
-                    foreach (int i in numbers.Keys)
+                    for (int i = 10; i <= 99; i++)
                     {
                         if ((i % 10) != target && (i % 10) != target + 1 && (i % 10) != target + 2)
                         {
-                            numbers[i] = false;
+                            matrix.setPossible(i, false);
                         }
                     }
                     break;
@@ -170,9 +169,9 @@ class Program
     {
         int numTrue = 0;
 
-        foreach (int i in numbers.Keys)
+        for (int i = 10; i <= 99; i++)
         {
-            if (numbers[i] == true)
+            if (matrix.getPossible(i) == true)
             {
                 numTrue++;
             }
@@ -181,9 +180,9 @@ class Program
         int[] trueItems = new int[numTrue];
         int index = 0;
 
-        foreach (int i in numbers.Keys)
+        for (int i = 10; i <= 99; i++)
         {
-            if (numbers[i] == true)
+            if (matrix.getPossible(i) == true)
             {
                 trueItems[index] = i;
                 index++;
@@ -208,16 +207,12 @@ class Program
     {
         for (int i = 10; i < 100; i++)
         {
-            numbers[i] = true;
+            matrix.setPossible(i, true);
         }
     }
 
     static void Main(string[] args)
     {
-        for(int i = 10; i <= 99; i++)
-        {
-            Console.WriteLine(i + " is at (" + matrix.getXCoord(i) + "," + matrix.getYCoord(i) + ") and is " + matrix.getPossible(i));
-        }
         Console.WriteLine("Hello, World!");
     }
 }
