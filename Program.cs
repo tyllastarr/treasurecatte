@@ -2,7 +2,8 @@
 
 class Program
 {
-    static Dictionary<int, bool> numbers = new Dictionary<int, bool>();
+    static Dictionary<int, bool> numbers = new Dictionary<int, bool>(); // TODO: Get rid of this
+    static NumberMatrix matrix = new NumberMatrix();
 
     static void Odd(int digitPlace) // Odd digits are good, so mark evens as false
     {
@@ -213,7 +214,10 @@ class Program
 
     static void Main(string[] args)
     {
-        ResetArray();
+        for(int i = 10; i <= 99; i++)
+        {
+            Console.WriteLine(i + " is at (" + matrix.getXCoord(i) + "," + matrix.getYCoord(i) + ") and is " + matrix.getPossible(i));
+        }
         Console.WriteLine("Hello, World!");
     }
 }
