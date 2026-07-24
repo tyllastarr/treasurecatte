@@ -22,16 +22,14 @@ class PossibleNumber
         set { top = value; }
     }
 
-    public PossibleNumber(int newLeft, int newTop)
-    {
-        left = newLeft;
-        top = newTop;
-        possible = true;
-    }
     public PossibleNumber(int newLeft, int newTop, bool isPossible)
     {
         left = newLeft;
         top = newTop;
         possible = isPossible;
+    }
+    public PossibleNumber(int newLeft, int newTop) : this(newLeft, newTop, true)
+    {
+        
     }
 }
