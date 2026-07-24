@@ -15,7 +15,7 @@ class Program
                     {
                         if (((i / 10) % 10) % 2 == 0)
                         {
-                            matrix.setPossible(i, false);
+                            matrix.SetPossible(i, false);
                         }
                     }
                     break;
@@ -24,7 +24,7 @@ class Program
                     {
                         if ((i % 10) % 2 == 0)
                         {
-                            matrix.setPossible(i, false);
+                            matrix.SetPossible(i, false);
                         }
                     }
                     break;
@@ -50,7 +50,7 @@ class Program
                     {
                         if (((i / 10) % 10) % 2 == 1)
                         {
-                            matrix.setPossible(i, false);
+                            matrix.SetPossible(i, false);
                         }
                     }
                     break;
@@ -59,7 +59,7 @@ class Program
                     {
                         if ((i % 10) % 2 == 1)
                         {
-                            matrix.setPossible(i, false);
+                            matrix.SetPossible(i, false);
                         }
                     }
                     break;
@@ -90,11 +90,11 @@ class Program
             {
                 if (i < lowerBound)
                 {
-                    matrix.setPossible(i, false);
+                    matrix.SetPossible(i, false);
                 }
                 if (i > upperBound)
                 {
-                    matrix.setPossible(i, false);
+                    matrix.SetPossible(i, false);
                 }
             }
         }
@@ -117,7 +117,7 @@ class Program
             {
                 if (((i / 10) % 10) != target && (i % 10) != target)
                 {
-                    matrix.setPossible(i, false);
+                    matrix.SetPossible(i, false);
                 }
             }
         }
@@ -142,7 +142,7 @@ class Program
                     {
                         if (((i / 10) % 10) != target && ((i / 10) % 10) != target + 1 && ((i / 10) % 10) != target + 2)
                         {
-                            matrix.setPossible(i, false);
+                            matrix.SetPossible(i, false);
                         }
                     }
                     break;
@@ -151,7 +151,7 @@ class Program
                     {
                         if ((i % 10) != target && (i % 10) != target + 1 && (i % 10) != target + 2)
                         {
-                            matrix.setPossible(i, false);
+                            matrix.SetPossible(i, false);
                         }
                     }
                     break;
@@ -171,7 +171,7 @@ class Program
 
         for (int i = 10; i <= 99; i++)
         {
-            if (matrix.getPossible(i) == true)
+            if (matrix.GetPossible(i) == true)
             {
                 numTrue++;
             }
@@ -182,7 +182,7 @@ class Program
 
         for (int i = 10; i <= 99; i++)
         {
-            if (matrix.getPossible(i) == true)
+            if (matrix.GetPossible(i) == true)
             {
                 trueItems[index] = i;
                 index++;
@@ -207,7 +207,7 @@ class Program
     {
         for (int i = 10; i < 100; i++)
         {
-            matrix.setPossible(i, true);
+            matrix.SetPossible(i, true);
         }
     }
 

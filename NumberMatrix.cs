@@ -27,27 +27,27 @@ class NumberMatrix
         }
     }
 
-    public int getLeft(int key)
+    public int GetLeft(int key)
     {
         return matrix[key].Left;
     }
-    public int getTop(int key)
+    public int GetTop(int key)
     {
         return matrix[key].Top;
     }
-    public bool getPossible(int key)
+    public bool GetPossible(int key)
     {
         return matrix[key].Possible;
     }
-    public void setLeft(int key, int newLeft)
+    public void SetLeft(int key, int newLeft)
     {
         matrix[key].Left = newLeft;
     }
-    public void setTop(int key, int newTop)
+    public void SetTop(int key, int newTop)
     {
         matrix[key].Top = newTop;
     }
-    public void setPossible(int key, bool isValid)
+    public void SetPossible(int key, bool isValid)
     {
         matrix[key].Possible = isValid;
     }

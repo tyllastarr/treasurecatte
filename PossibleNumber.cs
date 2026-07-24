@@ -30,6 +30,6 @@ class PossibleNumber
     }
     public PossibleNumber(int newLeft, int newTop) : this(newLeft, newTop, true)
     {
-        
+
     }
 }
