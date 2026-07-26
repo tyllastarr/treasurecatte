@@ -211,6 +211,29 @@ class Program
         }
     }
 
+    static void DrawNumbers()
+    {
+        int median = FindMedian();
+
+        for(int i = 10; i <= 99; i++)
+        {
+            if(i == median)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+            } else if(matrix.GetPossible(i) == false)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+            } else
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+
+            Console.SetCursorPosition(matrix.GetLeft(i), matrix.GetTop(i));
+
+            Console.Write(i);
+        }
+    }
+
     static void Main(string[] args)
     {
         Console.WriteLine("Hello, World!");
