@@ -215,6 +215,24 @@ class Program
         }
     }
 
+    static void DrawUiElement(UiElement element, int left, int top) // TODO: Test this
+    {
+        int currentTop;
+        int index;
+
+        Console.SetCursorPosition(left, top);
+        Console.Write(element.FullElement[0]);
+
+        currentTop = top + 1;
+
+        for(index = 1; index < element.FullElement.Length; index++)
+        {
+            Console.SetCursorPosition(left, currentTop);
+            Console.Write(element.FullElement[index]);
+            currentTop++;
+        }
+    }
+
     static void DrawNumbers()
     {
         int median = FindMedian();
