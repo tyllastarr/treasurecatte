@@ -5,6 +5,7 @@ class UiElement
     private int height;
     private int width;
     private string title;
+    private string[] fullElement;
     public int Height
     {
         get { return height; }
@@ -20,12 +21,18 @@ class UiElement
         get { return title; }
         set { title = value.ToUpper(); } // Title must be in all uppercase
     }
+    public string[] FullElement
+    {
+        get { return fullElement; }
+        set { fullElement = value; }
+    }
 
     public UiElement(int newHeight, int newWidth, string newTitle)
     {
         height = newHeight;
         width = newWidth;
         title = newTitle.ToUpper();
+        fullElement = CreateElement();
     }
     public UiElement() : this(1, 1, "")
     {
@@ -40,7 +47,7 @@ class UiElement
 
     }
 
-    public string[] CreateElement()
+    private string[] CreateElement()
     {
         int fullHeight = height + 2;
         string[] output = new string[fullHeight];
