@@ -56,7 +56,7 @@ class UiElement
         if (title == "") // Title is empty
         {
             output[0] = "┌";
-            for (int i = 1; i <= width; i++)
+            for (int i = 1; i <= width + 1; i++)
             {
                 output[0] += "─";
             }
@@ -78,7 +78,7 @@ class UiElement
         {
             output[i] = "│";
 
-            for (int j = 1; j <= width; j++)
+            for (int j = 1; j <= width + 1; j++)
             {
                 output[i] += " ";
             }
@@ -89,7 +89,7 @@ class UiElement
         // Bottom border
         output[output.Length - 1] = "└";
 
-        for (int i = 1; i <= width; i++)
+        for (int i = 1; i <= width + 1; i++)
         {
             output[output.Length - 1] += "─";
         }

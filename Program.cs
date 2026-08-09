@@ -215,7 +215,7 @@ class Program
         }
     }
 
-    static void DrawUiElement(UiElement element, int left, int top) // TODO: Test this
+    static void DrawUiElement(UiElement element, int left, int top)
     {
         int currentTop;
         int index;
