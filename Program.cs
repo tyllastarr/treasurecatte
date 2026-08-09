@@ -256,10 +256,17 @@ class Program
         }
     }
 
-    static void Main(string[] args)
+    static void DrawUi()
     {
         DrawUiElement(currentClues, 1, 1);
         DrawUiElement(possibleNumbers, 1, 10);
         DrawUiElement(controls, 37, 11);
+        DrawNumbers();
+        Console.SetCursorPosition(1, 22);
+    }
+
+    static void Main(string[] args)
+    {
+        DrawUi();
     }
 }

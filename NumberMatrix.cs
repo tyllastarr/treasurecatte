@@ -3,8 +3,8 @@ namespace TreasureCatte;
 class NumberMatrix
 {
     private Dictionary<int, PossibleNumber> matrix;
-    private const int startingLeft = 4;
-    private const int startingTop = 13;
+    private const int startingLeft = 3;
+    private const int startingTop = 11;
     private int left;
     private int top;
     private int currentNumber;
