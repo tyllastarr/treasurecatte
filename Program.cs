@@ -258,6 +258,8 @@ class Program
 
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello, World!");
+        DrawUiElement(currentClues, 1, 1);
+        DrawUiElement(possibleNumbers, 1, 10);
+        DrawUiElement(controls, 37, 11);
     }
 }
