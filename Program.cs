@@ -207,7 +207,7 @@ class Program
         }
     }
 
-    static void ResetArray()
+    static void ResetMatrix()
     {
         for (int i = 10; i < 100; i++)
         {
