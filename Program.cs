@@ -3,6 +3,10 @@
 class Program
 {
     static NumberMatrix matrix = new NumberMatrix();
+    static UiElement currentClues = new UiElement(6, 59, "CURRENT CLUES");
+    static UiElement possibleNumbers = new UiElement(9, 31, "POSSIBLE NUMBERS");
+    static UiElement controls = new UiElement(8, 40, "CONTROLS");
+
 
     static void Odd(int digitPlace) // Odd digits are good, so mark evens as false
     {
@@ -15,7 +19,7 @@ class Program
                     {
                         if (((i / 10) % 10) % 2 == 0)
                         {
-                            matrix.setPossible(i, false);
+                            matrix.SetPossible(i, false);
                         }
                     }
                     break;
@@ -24,7 +28,7 @@ class Program
                     {
                         if ((i % 10) % 2 == 0)
                         {
-                            matrix.setPossible(i, false);
+                            matrix.SetPossible(i, false);
                         }
                     }
                     break;
@@ -50,7 +54,7 @@ class Program
                     {
                         if (((i / 10) % 10) % 2 == 1)
                         {
-                            matrix.setPossible(i, false);
+                            matrix.SetPossible(i, false);
                         }
                     }
                     break;
@@ -59,7 +63,7 @@ class Program
                     {
                         if ((i % 10) % 2 == 1)
                         {
-                            matrix.setPossible(i, false);
+                            matrix.SetPossible(i, false);
                         }
                     }
                     break;
@@ -90,11 +94,11 @@ class Program
             {
                 if (i < lowerBound)
                 {
-                    matrix.setPossible(i, false);
+                    matrix.SetPossible(i, false);
                 }
                 if (i > upperBound)
                 {
-                    matrix.setPossible(i, false);
+                    matrix.SetPossible(i, false);
                 }
             }
         }
@@ -117,7 +121,7 @@ class Program
             {
                 if (((i / 10) % 10) != target && (i % 10) != target)
                 {
-                    matrix.setPossible(i, false);
+                    matrix.SetPossible(i, false);
                 }
             }
         }
@@ -142,7 +146,7 @@ class Program
                     {
                         if (((i / 10) % 10) != target && ((i / 10) % 10) != target + 1 && ((i / 10) % 10) != target + 2)
                         {
-                            matrix.setPossible(i, false);
+                            matrix.SetPossible(i, false);
                         }
                     }
                     break;
@@ -151,7 +155,7 @@ class Program
                     {
                         if ((i % 10) != target && (i % 10) != target + 1 && (i % 10) != target + 2)
                         {
-                            matrix.setPossible(i, false);
+                            matrix.SetPossible(i, false);
                         }
                     }
                     break;
@@ -171,7 +175,7 @@ class Program
 
         for (int i = 10; i <= 99; i++)
         {
-            if (matrix.getPossible(i) == true)
+            if (matrix.GetPossible(i) == true)
             {
                 numTrue++;
             }
@@ -182,7 +186,7 @@ class Program
 
         for (int i = 10; i <= 99; i++)
         {
-            if (matrix.getPossible(i) == true)
+            if (matrix.GetPossible(i) == true)
             {
                 trueItems[index] = i;
                 index++;
@@ -203,16 +207,66 @@ class Program
         }
     }
 
-    static void ResetArray()
+    static void ResetMatrix()
     {
         for (int i = 10; i < 100; i++)
         {
-            matrix.setPossible(i, true);
+            matrix.SetPossible(i, true);
         }
+    }
+
+    static void DrawUiElement(UiElement element, int left, int top)
+    {
+        int currentTop;
+        int index;
+
+        Console.SetCursorPosition(left, top);
+        Console.Write(element.FullElement[0]);
+
+        currentTop = top + 1;
+
+        for(index = 1; index < element.FullElement.Length; index++)
+        {
+            Console.SetCursorPosition(left, currentTop);
+            Console.Write(element.FullElement[index]);
+            currentTop++;
+        }
+    }
+
+    static void DrawNumbers()
+    {
+        int median = FindMedian();
+
+        for(int i = 10; i <= 99; i++)
+        {
+            if(i == median)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+            } else if(matrix.GetPossible(i) == false)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+            } else
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+
+            Console.SetCursorPosition(matrix.GetLeft(i), matrix.GetTop(i));
+
+            Console.Write(i);
+        }
+    }
+
+    static void DrawUi()
+    {
+        DrawUiElement(currentClues, 1, 1);
+        DrawUiElement(possibleNumbers, 1, 10);
+        DrawUiElement(controls, 37, 11);
+        DrawNumbers();
+        Console.SetCursorPosition(1, 22);
     }
 
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello, World!");
+        DrawUi();
     }
 }

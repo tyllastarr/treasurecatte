@@ -3,51 +3,51 @@ namespace TreasureCatte;
 class NumberMatrix
 {
     private Dictionary<int, PossibleNumber> matrix;
-    private const int startingX = 4;
-    private const int startingY = 13;
-    private int currentX;
-    private int currentY;
+    private const int startingLeft = 3;
+    private const int startingTop = 11;
+    private int left;
+    private int top;
     private int currentNumber;
 
     public NumberMatrix()
     {
         matrix = new Dictionary<int, PossibleNumber>();
-        currentY = startingY;
+        top = startingTop;
 
         for(int firstDigit = 1; firstDigit <= 9; firstDigit++)
         {
-            currentX = startingX;
+            left = startingLeft;
             for(int secondDigit = 0; secondDigit <= 9; secondDigit++)
             {
                 currentNumber = (firstDigit * 10) + secondDigit;
-                matrix[currentNumber] = new PossibleNumber(currentX, currentY);
-                currentX += 3;
+                matrix[currentNumber] = new PossibleNumber(left, top);
+                left += 3;
             }
-            currentY++;
+            top++;
         }
     }
 
-    public int getXCoord(int key)
+    public int GetLeft(int key)
     {
-        return matrix[key].X;
+        return matrix[key].Left;
     }
-    public int getYCoord(int key)
+    public int GetTop(int key)
     {
-        return matrix[key].Y;
+        return matrix[key].Top;
     }
-    public bool getPossible(int key)
+    public bool GetPossible(int key)
     {
         return matrix[key].Possible;
     }
-    public void setXCoord(int key, int coord)
+    public void SetLeft(int key, int newLeft)
     {
-        matrix[key].X = coord;
+        matrix[key].Left = newLeft;
     }
-    public void setYCoord(int key, int coord)
+    public void SetTop(int key, int newTop)
     {
-        matrix[key].Y = coord;
+        matrix[key].Top = newTop;
     }
-    public void setPossible(int key, bool isValid)
+    public void SetPossible(int key, bool isValid)
     {
         matrix[key].Possible = isValid;
     }

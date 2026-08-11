@@ -3,35 +3,33 @@ namespace TreasureCatte;
 class PossibleNumber
 {
     private bool possible;
-    private int x;
-    private int y;
+    private int left;
+    private int top;
 
     public bool Possible
     {
         get { return possible; }
         set { possible = value; }
     }
-    public int X
+    public int Left
     {
-        get { return x; }
-        set { x = value; }
+        get { return left; }
+        set { left = value; }
     }
-    public int Y
+    public int Top
     {
-        get { return y; }
-        set { y = value; }
+        get { return top; }
+        set { top = value; }
     }
 
-    public PossibleNumber(int xCoord, int yCoord)
+    public PossibleNumber(int newLeft, int newTop, bool isPossible)
     {
-        x = xCoord;
-        y = yCoord;
-        possible = true;
-    }
-    public PossibleNumber(int xCoord, int yCoord, bool isPossible)
-    {
-        x = xCoord;
-        y = yCoord;
+        left = newLeft;
+        top = newTop;
         possible = isPossible;
+    }
+    public PossibleNumber(int newLeft, int newTop) : this(newLeft, newTop, true)
+    {
+
     }
 }
