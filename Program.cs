@@ -6,6 +6,8 @@ class Program
     static UiElement currentClues = new UiElement(6, 59, "CURRENT CLUES");
     static UiElement possibleNumbers = new UiElement(9, 31, "POSSIBLE NUMBERS");
     static UiElement controls = new UiElement(8, 40, "CONTROLS");
+    static bool exit = false;
+    static char inputChar;
 
 
     static void Odd(int digitPlace) // Odd digits are good, so mark evens as false
@@ -265,8 +267,22 @@ class Program
         Console.SetCursorPosition(1, 22);
     }
 
-    static void Main(string[] args)
+    static void ProgramLoop()
     {
         DrawUi();
+        
+        inputChar = Char.ToUpper(Console.ReadKey().KeyChar);
+
+        switch(inputChar)
+        {
+            // TODO: This is where logic for which key is pressed will go
+        }
+
+        ProgramLoop();
+    }
+
+    static void Main(string[] args)
+    {
+        ProgramLoop();
     }
 }
