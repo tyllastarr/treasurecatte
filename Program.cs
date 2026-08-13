@@ -279,8 +279,6 @@ class Program
 
             switch (inputChar)
             {
-                // TODO: This is where logic for which key is pressed will go
-
                 case 'X': // Exit
                     exit = true;
                     break;
@@ -306,6 +304,7 @@ class Program
                                 Odd(2);
                                 break;
                             default:
+                                Console.WriteLine("Invalid entry.");
                                 validInput = false;
                                 break;
 
@@ -330,12 +329,77 @@ class Program
                                 Even(2);
                                 break;
                             default:
+                                Console.WriteLine("Invalid entry.");
                                 validInput = false;
                                 break;
 
                         }
                     } while (validInput == false);
                     break;
+                case 'B': // TODO: Between two numbers
+                    break;
+                case 'D': // One digit is a number
+                    do
+                    {
+                        Console.SetCursorPosition(1, 22);
+                        Console.Write("Which digit?");
+
+                        switch (Console.ReadKey().KeyChar)
+                        {
+                            case '1':
+                                validInput = true;
+                                OneDigitIsNumber(1);
+                                break;
+                            case '2':
+                                validInput = true;
+                                OneDigitIsNumber(2);
+                                break;
+                            case '3':
+                                validInput = true;
+                                OneDigitIsNumber(3);
+                                break;
+                            case '4':
+                                validInput = true;
+                                OneDigitIsNumber(4);
+                                break;
+                            case '5':
+                                validInput = true;
+                                OneDigitIsNumber(5);
+                                break;
+                            case '6':
+                                validInput = true;
+                                OneDigitIsNumber(6);
+                                break;
+                            case '7':
+                                validInput = true;
+                                OneDigitIsNumber(7);
+                                break;
+                            case '8':
+                                validInput = true;
+                                OneDigitIsNumber(8);
+                                break;
+                            case '9':
+                                validInput = true;
+                                OneDigitIsNumber(9);
+                                break;
+                            case '0':
+                                validInput = true;
+                                OneDigitIsNumber(0);
+                                break;
+                            default:
+                                Console.WriteLine("Invalid entry.");
+                                validInput = false;
+                                break;
+
+                        }
+                    } while (validInput == false);
+                    break;
+                case 'T': // TODO: Three number sequence
+                    break;
+                default:
+                    Console.WriteLine("Invalid entry.");
+                    break;
+
             }
 
         } while (exit == false);
