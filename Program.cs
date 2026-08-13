@@ -8,6 +8,7 @@ class Program
     static UiElement controls = new UiElement(8, 40, "CONTROLS");
     static bool exit = false;
     static char inputChar;
+    static bool validInput;
 
 
     static void Odd(int digitPlace) // Odd digits are good, so mark evens as false
@@ -246,7 +247,7 @@ class Program
                 Console.ForegroundColor = ConsoleColor.Yellow;
             } else if(matrix.GetPossible(i) == false)
             {
-                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.ForegroundColor = ConsoleColor.Black;
             } else
             {
                 Console.ForegroundColor = ConsoleColor.White;
@@ -260,6 +261,7 @@ class Program
 
     static void DrawUi()
     {
+        Console.ForegroundColor = ConsoleColor.White;
         DrawUiElement(currentClues, 1, 1);
         DrawUiElement(possibleNumbers, 1, 10);
         DrawUiElement(controls, 37, 11);
@@ -267,22 +269,75 @@ class Program
         Console.SetCursorPosition(1, 22);
     }
 
-    static void ProgramLoop()
-    {
-        DrawUi();
-        
-        inputChar = Char.ToUpper(Console.ReadKey().KeyChar);
-
-        switch(inputChar)
-        {
-            // TODO: This is where logic for which key is pressed will go
-        }
-
-        ProgramLoop();
-    }
-
     static void Main(string[] args)
     {
-        ProgramLoop();
+        do
+        {
+            DrawUi();
+
+            inputChar = Char.ToUpper(Console.ReadKey().KeyChar);
+
+            switch (inputChar)
+            {
+                // TODO: This is where logic for which key is pressed will go
+
+                case 'X': // Exit
+                    exit = true;
+                    break;
+
+                case 'R': // Reset
+                    ResetMatrix();
+                    break;
+
+                case 'O': // Odd number
+                    do
+                    {
+                        Console.SetCursorPosition(1, 22);
+                        Console.Write("First or second digit?");
+
+                        switch (Console.ReadKey().KeyChar)
+                        {
+                            case '1':
+                                validInput = true;
+                                Odd(1);
+                                break;
+                            case '2':
+                                validInput = true;
+                                Odd(2);
+                                break;
+                            default:
+                                validInput = false;
+                                break;
+
+                        }
+                    } while (validInput == false);
+                    break;
+
+                case 'E': // Even number
+                    do
+                    {
+                        Console.SetCursorPosition(1, 22);
+                        Console.Write("First or second digit?");
+
+                        switch (Console.ReadKey().KeyChar)
+                        {
+                            case '1':
+                                validInput = true;
+                                Even(1);
+                                break;
+                            case '2':
+                                validInput = true;
+                                Even(2);
+                                break;
+                            default:
+                                validInput = false;
+                                break;
+
+                        }
+                    } while (validInput == false);
+                    break;
+            }
+
+        } while (exit == false);
     }
 }
