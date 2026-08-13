@@ -9,6 +9,7 @@ class Program
     static bool exit = false;
     static char inputChar;
     static bool validInput;
+    static int inputInt;
 
 
     static void Odd(int digitPlace) // Odd digits are good, so mark evens as false
@@ -210,6 +211,92 @@ class Program
         }
     }
 
+    static int FindDigitPlace()
+    {
+        do
+        {
+            Console.SetCursorPosition(1, 22);
+            Console.Write("First or second digit?");
+
+            switch (Console.ReadKey().KeyChar)
+            {
+                case '1':
+                    validInput = true;
+                    inputInt = 1;
+                    break;
+                case '2':
+                    validInput = true;
+                    inputInt = 2;
+                    break;
+                default:
+                    Console.WriteLine("Invalid entry.");
+                    validInput = false;
+                    break;
+            }
+        } while (validInput == false);
+
+        return inputInt;
+    }
+    static int FindTargetDigit(int maxTarget = 9, string prompt = "Which digit?")
+    {
+        // TODO: Write this method.
+
+        validInput = false;
+
+        do
+        {
+            Console.SetCursorPosition(1, 22);
+            Console.Write(prompt);
+
+            switch (Console.ReadKey().KeyChar)
+            {
+                case '0':
+                    inputInt = 0;
+                    break;
+                case '1':
+                    inputInt = 1;
+                    break;
+                case '2':
+                    inputInt = 2;
+                    break;
+                case '3':
+                    inputInt = 3;
+                    break;
+                case '4':
+                    inputInt = 4;
+                    break;
+                case '5':
+                    inputInt = 5;
+                    break;
+                case '6':
+                    inputInt = 6;
+                    break;
+                case '7':
+                    inputInt = 7;
+                    break;
+                case '8':
+                    inputInt = 8;
+                    break;
+                case '9':
+                    inputInt = 9;
+                    break;
+                default:
+                    Console.WriteLine("Invalid entry.");
+                    break;
+            }
+
+            if(inputInt <= maxTarget)
+            {
+                validInput = true;
+            } else
+            {
+                Console.WriteLine("Invalid entry.");
+            }
+
+        } while (validInput == false);
+
+        return inputInt;
+    }
     static void ResetMatrix()
     {
         for (int i = 10; i < 100; i++)
@@ -288,113 +375,19 @@ class Program
                     break;
 
                 case 'O': // Odd number
-                    do
-                    {
-                        Console.SetCursorPosition(1, 22);
-                        Console.Write("First or second digit?");
-
-                        switch (Console.ReadKey().KeyChar)
-                        {
-                            case '1':
-                                validInput = true;
-                                Odd(1);
-                                break;
-                            case '2':
-                                validInput = true;
-                                Odd(2);
-                                break;
-                            default:
-                                Console.WriteLine("Invalid entry.");
-                                validInput = false;
-                                break;
-
-                        }
-                    } while (validInput == false);
+                    Odd(FindDigitPlace());
                     break;
 
                 case 'E': // Even number
-                    do
-                    {
-                        Console.SetCursorPosition(1, 22);
-                        Console.Write("First or second digit?");
-
-                        switch (Console.ReadKey().KeyChar)
-                        {
-                            case '1':
-                                validInput = true;
-                                Even(1);
-                                break;
-                            case '2':
-                                validInput = true;
-                                Even(2);
-                                break;
-                            default:
-                                Console.WriteLine("Invalid entry.");
-                                validInput = false;
-                                break;
-
-                        }
-                    } while (validInput == false);
+                    Even(FindDigitPlace());
                     break;
                 case 'B': // TODO: Between two numbers
                     break;
                 case 'D': // One digit is a number
-                    do
-                    {
-                        Console.SetCursorPosition(1, 22);
-                        Console.Write("Which digit?");
-
-                        switch (Console.ReadKey().KeyChar)
-                        {
-                            case '1':
-                                validInput = true;
-                                OneDigitIsNumber(1);
-                                break;
-                            case '2':
-                                validInput = true;
-                                OneDigitIsNumber(2);
-                                break;
-                            case '3':
-                                validInput = true;
-                                OneDigitIsNumber(3);
-                                break;
-                            case '4':
-                                validInput = true;
-                                OneDigitIsNumber(4);
-                                break;
-                            case '5':
-                                validInput = true;
-                                OneDigitIsNumber(5);
-                                break;
-                            case '6':
-                                validInput = true;
-                                OneDigitIsNumber(6);
-                                break;
-                            case '7':
-                                validInput = true;
-                                OneDigitIsNumber(7);
-                                break;
-                            case '8':
-                                validInput = true;
-                                OneDigitIsNumber(8);
-                                break;
-                            case '9':
-                                validInput = true;
-                                OneDigitIsNumber(9);
-                                break;
-                            case '0':
-                                validInput = true;
-                                OneDigitIsNumber(0);
-                                break;
-                            default:
-                                Console.WriteLine("Invalid entry.");
-                                validInput = false;
-                                break;
-
-                        }
-                    } while (validInput == false);
+                    OneDigitIsNumber(FindTargetDigit(9));
                     break;
-                case 'T': // TODO: Three number sequence
+                case 'T': // Three number sequence
+                    ThreeNumberSequence(FindDigitPlace(), FindTargetDigit(7));
                     break;
                 default:
                     Console.WriteLine("Invalid entry.");
