@@ -27,24 +27,12 @@ class UiElement
         set { fullElement = value; }
     }
 
-    public UiElement(int newHeight, int newWidth, string newTitle)
+    public UiElement(int newHeight = 1, int newWidth = 1, string newTitle = "")
     {
         height = newHeight;
         width = newWidth;
         title = newTitle.ToUpper();
         fullElement = CreateElement();
-    }
-    public UiElement() : this(1, 1, "")
-    {
-
-    }
-    public UiElement(int newHeight) : this(newHeight, 1, "")
-    {
-
-    }
-    public UiElement(string newTitle) : this(1, 1, newTitle)
-    {
-
     }
 
     private string[] CreateElement()
