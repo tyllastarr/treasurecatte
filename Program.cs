@@ -239,8 +239,6 @@ class Program
     }
     static int FindTargetDigit(int maxTarget = 9, string prompt = "Which digit?")
     {
-        // TODO: Write this method.
-
         validInput = false;
 
         do
@@ -288,6 +286,38 @@ class Program
             if(inputInt <= maxTarget)
             {
                 validInput = true;
+            } else
+            {
+                Console.WriteLine("Invalid entry.");
+            }
+
+        } while (validInput == false);
+
+        return inputInt;
+    }
+
+    static int InputNumber(string prompt = "Please enter the number:")
+    {
+        string inputStr;
+        int inputInt;
+
+        validInput = false;
+
+        do
+        {
+            Console.SetCursorPosition(1, 22);
+            Console.Write(prompt);
+            inputStr = Console.ReadLine();
+
+            if(int.TryParse(inputStr, out inputInt))
+            {
+                if(inputInt >= 10 && inputInt <= 99)
+                {
+                    validInput = true;
+                } else
+                {
+                    Console.WriteLine("Invalid entry.");
+                }
             } else
             {
                 Console.WriteLine("Invalid entry.");
@@ -381,14 +411,19 @@ class Program
                 case 'E': // Even number
                     Even(FindDigitPlace());
                     break;
-                case 'B': // TODO: Between two numbers
+
+                case 'B': // Between two numbers
+                    BetweenNumbers(InputNumber("Please enter lower bound:"), InputNumber("Please enter upper bound:"));
                     break;
+
                 case 'D': // One digit is a number
                     OneDigitIsNumber(FindTargetDigit(9));
                     break;
+
                 case 'T': // Three number sequence
                     ThreeNumberSequence(FindDigitPlace(), FindTargetDigit(7));
                     break;
+
                 default:
                     Console.WriteLine("Invalid entry.");
                     break;
