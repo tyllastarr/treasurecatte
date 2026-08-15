@@ -3,6 +3,8 @@
 class Program
 {
     static NumberMatrix matrix = new NumberMatrix();
+    static int numClues = 0;
+    static string[] clueList = new string[6];
     static UiElement currentClues = new UiElement(6, 59, "CURRENT CLUES");
     static UiElement possibleNumbers = new UiElement(9, 31, "POSSIBLE NUMBERS");
     static UiElement controls = new UiElement(8, 40, "CONTROLS");
@@ -26,6 +28,7 @@ class Program
                             matrix.SetPossible(i, false);
                         }
                     }
+                    AddClue("The first digit is odd.");
                     break;
                 case 2:
                     for (int i = 10; i <= 99; i++)
@@ -35,6 +38,7 @@ class Program
                             matrix.SetPossible(i, false);
                         }
                     }
+                    AddClue("The second digit is odd.");
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("Error: Invalid digit placement.");
@@ -61,6 +65,7 @@ class Program
                             matrix.SetPossible(i, false);
                         }
                     }
+                    AddClue("The first digit is even.");
                     break;
                 case 2:
                     for (int i = 10; i <= 99; i++)
@@ -70,6 +75,7 @@ class Program
                             matrix.SetPossible(i, false);
                         }
                     }
+                    AddClue("The second digit is even.");
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("Error: Invalid digit placement.");
@@ -105,6 +111,9 @@ class Program
                     matrix.SetPossible(i, false);
                 }
             }
+
+            AddClue("The combination is between " + lowerBound + " and " + upperBound + ".");
+            Console.Write(""); // TODO: Debug line
         }
         catch (Exception e)
         {
@@ -128,6 +137,9 @@ class Program
                     matrix.SetPossible(i, false);
                 }
             }
+
+            AddClue("One of the two digits is " + target + ".");
+            Console.Write(""); // TODO: Debug line
         }
         catch (Exception e)
         {
@@ -153,6 +165,7 @@ class Program
                             matrix.SetPossible(i, false);
                         }
                     }
+                    AddClue("The first digit is " + target + ", " + (target + 1) + ", or " + (target + 2) + ".");
                     break;
                 case 2:
                     for (int i = 10; i <= 99; i++)
@@ -162,6 +175,7 @@ class Program
                             matrix.SetPossible(i, false);
                         }
                     }
+                    AddClue("The second digit is " + target + ", " + (target + 1) + ", or " + (target + 2) + ".");
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("Error: Invalid digit placement.");
@@ -327,12 +341,37 @@ class Program
 
         return inputInt;
     }
+
+    static void AddClue(string newClue)
+    {
+        Console.WriteLine($"AddClue: numClues={numClues} -> writing index {numClues}: \"{newClue}\"");
+        if (numClues >= 0 && numClues < clueList.Length)
+        {
+            clueList[numClues] = newClue;
+            if (numClues < clueList.Length - 1)
+            {
+                numClues++;
+            }
+        }
+        else
+        {
+            Console.WriteLine($"AddClue: out-of-range numClues={numClues}, ignoring new clue");
+        }
+    }
+
     static void ResetMatrix()
     {
         for (int i = 10; i < 100; i++)
         {
             matrix.SetPossible(i, true);
         }
+
+        for(int i = 0; i < 6; i++)
+        {
+            clueList[i] = "";
+        }
+
+        numClues = 0;
     }
 
     static void DrawUiElement(UiElement element, int left, int top)
@@ -388,6 +427,7 @@ class Program
 
     static void Main(string[] args)
     {
+        ResetMatrix();
         do
         {
             DrawUi();
