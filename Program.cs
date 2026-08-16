@@ -433,6 +433,26 @@ class Program
         } while (position <= 6 && clueList[position - 1] != "");
     }
 
+    static void DrawControls()
+    {
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.SetCursorPosition(38, 12);
+        Console.Write("O: Odd Number");
+        Console.SetCursorPosition(38, 13);
+        Console.Write("E: Even Number");
+        Console.SetCursorPosition(38, 14);
+        Console.Write("B: Between Two Numbers");
+        Console.SetCursorPosition(38, 15);
+        Console.Write("D: One Digit is a Number");
+        Console.SetCursorPosition(38, 16);
+        Console.Write("T: Three Number Sequence");
+        Console.SetCursorPosition(38, 17);
+        Console.Write("X: Exit");
+
+
+
+    }
+
     static void DrawUi()
     {
         Console.ForegroundColor = ConsoleColor.White;
@@ -440,6 +460,8 @@ class Program
         DrawUiElement(possibleNumbers, 1, 10);
         DrawUiElement(controls, 37, 11);
         DrawNumbers();
+        DrawClues();
+        DrawControls();
         Console.SetCursorPosition(1, 22);
     }
 
@@ -449,7 +471,6 @@ class Program
         do
         {
             DrawUi();
-            DrawClues();
 
             inputChar = Char.ToUpper(Console.ReadKey().KeyChar);
 
