@@ -415,6 +415,24 @@ class Program
         }
     }
 
+    static void DrawClues()
+    {
+        if (clueList[0] == "") // No clues
+        {
+            return;
+        }
+
+        int position = 1;
+
+        do
+        {
+            Console.SetCursorPosition(2, position + 1);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(position + ": " + clueList[position - 1]);
+            position++;
+        } while (position <= 6 && clueList[position - 1] != "");
+    }
+
     static void DrawUi()
     {
         Console.ForegroundColor = ConsoleColor.White;
@@ -431,6 +449,7 @@ class Program
         do
         {
             DrawUi();
+            DrawClues();
 
             inputChar = Char.ToUpper(Console.ReadKey().KeyChar);
 
