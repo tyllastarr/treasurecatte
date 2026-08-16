@@ -1,13 +1,17 @@
 ﻿namespace TreasureCatte;
 
+using System.Collections.ObjectModel;
+
 class Program
 {
     static NumberMatrix matrix = new NumberMatrix();
     static int numClues = 0;
     static string[] clueList = new string[6];
+    static readonly ReadOnlyCollection<int> numFor100 = new ReadOnlyCollection<int>(new[] { 1, 3, 7, 15, 31, 63 });
     static UiElement currentClues = new UiElement(6, 59, "CURRENT CLUES");
     static UiElement possibleNumbers = new UiElement(9, 31, "POSSIBLE NUMBERS");
     static UiElement controls = new UiElement(8, 40, "CONTROLS");
+    static UiElement percentDone = new UiElement(1, 13, "% TO OPEN");
     static bool exit = false;
     static char inputChar;
     static bool validInput;
@@ -348,6 +352,29 @@ class Program
         return inputInt;
     }
 
+    static int FindPercentDone()
+    {
+        int count = 0;
+
+        for(int i = 10; i <= 99; i++)
+        {
+            if(matrix.GetPossible(i) == true)
+            {
+                count++;
+            }
+        }
+
+        double percent = (double)numFor100[5 - numClues] / count;
+
+        if (percent < 1)
+        {
+            return (int)(percent * 100);
+        } else
+        {
+            return 100;
+        }
+    }
+
     static void AddClue(string newClue)
     {
         Console.WriteLine($"AddClue: numClues={numClues} -> writing index {numClues}: \"{newClue}\"");
@@ -465,16 +492,30 @@ class Program
 
     }
 
+    static void DrawPercentDone()
+    {
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.SetCursorPosition(69, 7);
+        Console.Write(FindPercentDone() + "%");
+    }
+
     static void DrawUi()
     {
         Console.ForegroundColor = ConsoleColor.White;
         DrawUiElement(currentClues, 1, 1);
         DrawUiElement(possibleNumbers, 1, 10);
         DrawUiElement(controls, 37, 11);
+        DrawUiElement(percentDone, 63, 6);
         DrawNumbers();
         DrawClues();
         DrawControls();
-        Console.SetCursorPosition(1, 22);
+        DrawPercentDone();
+        Console.SetCursorPosition(66, 2);
+        Console.Write("Treasure");
+        Console.SetCursorPosition(70, 3);
+        Console.Write("Catte");
+        Console.SetCursorPosition(3, 22);
+        Console.Write("Created by Tyll'a");
     }
 
     static void Main(string[] args)
