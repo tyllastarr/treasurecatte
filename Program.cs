@@ -229,7 +229,9 @@ class Program
     {
         do
         {
-            Console.SetCursorPosition(1, 22);
+            ResetPromptArea();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.SetCursorPosition(38, 19);
             Console.Write("First or second digit?");
 
             switch (Console.ReadKey().KeyChar)
@@ -257,7 +259,9 @@ class Program
 
         do
         {
-            Console.SetCursorPosition(1, 22);
+            ResetPromptArea();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.SetCursorPosition(38, 19);
             Console.Write(prompt);
 
             switch (Console.ReadKey().KeyChar)
@@ -319,7 +323,9 @@ class Program
 
         do
         {
-            Console.SetCursorPosition(1, 22);
+            ResetPromptArea();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.SetCursorPosition(38, 19);
             Console.Write(prompt);
             inputStr = Console.ReadLine();
 
@@ -372,6 +378,12 @@ class Program
         }
 
         numClues = 0;
+    }
+
+    static void ResetPromptArea()
+    {
+        Console.SetCursorPosition(38, 19);
+        Console.Write("                                         ");
     }
 
     static void DrawUiElement(UiElement element, int left, int top)
