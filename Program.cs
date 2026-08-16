@@ -1,11 +1,17 @@
 ﻿namespace TreasureCatte;
 
+using System.Collections.ObjectModel;
+
 class Program
 {
     static NumberMatrix matrix = new NumberMatrix();
+    static int numClues = 0;
+    static string[] clueList = new string[6];
+    static readonly ReadOnlyCollection<int> numFor100 = new ReadOnlyCollection<int>(new[] { 1, 3, 7, 15, 31, 63 });
     static UiElement currentClues = new UiElement(6, 59, "CURRENT CLUES");
     static UiElement possibleNumbers = new UiElement(9, 31, "POSSIBLE NUMBERS");
     static UiElement controls = new UiElement(8, 40, "CONTROLS");
+    static UiElement percentDone = new UiElement(1, 13, "% TO OPEN");
     static bool exit = false;
     static char inputChar;
     static bool validInput;
@@ -26,6 +32,7 @@ class Program
                             matrix.SetPossible(i, false);
                         }
                     }
+                    AddClue("The first digit is odd.");
                     break;
                 case 2:
                     for (int i = 10; i <= 99; i++)
@@ -35,6 +42,7 @@ class Program
                             matrix.SetPossible(i, false);
                         }
                     }
+                    AddClue("The second digit is odd.");
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("Error: Invalid digit placement.");
@@ -61,6 +69,7 @@ class Program
                             matrix.SetPossible(i, false);
                         }
                     }
+                    AddClue("The first digit is even.");
                     break;
                 case 2:
                     for (int i = 10; i <= 99; i++)
@@ -70,6 +79,7 @@ class Program
                             matrix.SetPossible(i, false);
                         }
                     }
+                    AddClue("The second digit is even.");
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("Error: Invalid digit placement.");
@@ -105,6 +115,9 @@ class Program
                     matrix.SetPossible(i, false);
                 }
             }
+
+            AddClue("The combination is between " + lowerBound + " and " + upperBound + ".");
+            Console.Write(""); // TODO: Debug line
         }
         catch (Exception e)
         {
@@ -128,6 +141,9 @@ class Program
                     matrix.SetPossible(i, false);
                 }
             }
+
+            AddClue("One of the two digits is " + target + ".");
+            Console.Write(""); // TODO: Debug line
         }
         catch (Exception e)
         {
@@ -153,6 +169,7 @@ class Program
                             matrix.SetPossible(i, false);
                         }
                     }
+                    AddClue("The first digit is " + target + ", " + (target + 1) + ", or " + (target + 2) + ".");
                     break;
                 case 2:
                     for (int i = 10; i <= 99; i++)
@@ -162,6 +179,7 @@ class Program
                             matrix.SetPossible(i, false);
                         }
                     }
+                    AddClue("The second digit is " + target + ", " + (target + 1) + ", or " + (target + 2) + ".");
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("Error: Invalid digit placement.");
@@ -215,7 +233,9 @@ class Program
     {
         do
         {
-            Console.SetCursorPosition(1, 22);
+            ResetPromptArea();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.SetCursorPosition(38, 19);
             Console.Write("First or second digit?");
 
             switch (Console.ReadKey().KeyChar)
@@ -243,7 +263,9 @@ class Program
 
         do
         {
-            Console.SetCursorPosition(1, 22);
+            ResetPromptArea();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.SetCursorPosition(38, 19);
             Console.Write(prompt);
 
             switch (Console.ReadKey().KeyChar)
@@ -305,7 +327,9 @@ class Program
 
         do
         {
-            Console.SetCursorPosition(1, 22);
+            ResetPromptArea();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.SetCursorPosition(38, 19);
             Console.Write(prompt);
             inputStr = Console.ReadLine();
 
@@ -327,12 +351,66 @@ class Program
 
         return inputInt;
     }
+
+    static int FindPercentDone()
+    {
+        int count = 0;
+
+        for(int i = 10; i <= 99; i++)
+        {
+            if(matrix.GetPossible(i) == true)
+            {
+                count++;
+            }
+        }
+
+        double percent = (double)numFor100[5 - numClues] / count;
+
+        if (percent < 1)
+        {
+            return (int)(percent * 100);
+        } else
+        {
+            return 100;
+        }
+    }
+
+    static void AddClue(string newClue)
+    {
+        Console.WriteLine($"AddClue: numClues={numClues} -> writing index {numClues}: \"{newClue}\"");
+        if (numClues >= 0 && numClues < clueList.Length)
+        {
+            clueList[numClues] = newClue;
+            if (numClues < clueList.Length - 1)
+            {
+                numClues++;
+            }
+        }
+        else
+        {
+            Console.WriteLine($"AddClue: out-of-range numClues={numClues}, ignoring new clue");
+        }
+    }
+
     static void ResetMatrix()
     {
         for (int i = 10; i < 100; i++)
         {
             matrix.SetPossible(i, true);
         }
+
+        for(int i = 0; i < 6; i++)
+        {
+            clueList[i] = "";
+        }
+
+        numClues = 0;
+    }
+
+    static void ResetPromptArea()
+    {
+        Console.SetCursorPosition(38, 19);
+        Console.Write("                                         ");
     }
 
     static void DrawUiElement(UiElement element, int left, int top)
@@ -376,18 +454,73 @@ class Program
         }
     }
 
+    static void DrawClues()
+    {
+        if (clueList[0] == "") // No clues
+        {
+            return;
+        }
+
+        int position = 1;
+
+        do
+        {
+            Console.SetCursorPosition(2, position + 1);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(position + ": " + clueList[position - 1]);
+            position++;
+        } while (position <= 6 && clueList[position - 1] != "");
+    }
+
+    static void DrawControls()
+    {
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.SetCursorPosition(38, 12);
+        Console.Write("O: Odd Number");
+        Console.SetCursorPosition(38, 13);
+        Console.Write("E: Even Number");
+        Console.SetCursorPosition(38, 14);
+        Console.Write("B: Between Two Numbers");
+        Console.SetCursorPosition(38, 15);
+        Console.Write("D: One Digit is a Number");
+        Console.SetCursorPosition(38, 16);
+        Console.Write("T: Three Number Sequence");
+        Console.SetCursorPosition(38, 17);
+        Console.Write("X: Exit");
+
+
+
+    }
+
+    static void DrawPercentDone()
+    {
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.SetCursorPosition(69, 7);
+        Console.Write(FindPercentDone() + "%");
+    }
+
     static void DrawUi()
     {
         Console.ForegroundColor = ConsoleColor.White;
         DrawUiElement(currentClues, 1, 1);
         DrawUiElement(possibleNumbers, 1, 10);
         DrawUiElement(controls, 37, 11);
+        DrawUiElement(percentDone, 63, 6);
         DrawNumbers();
-        Console.SetCursorPosition(1, 22);
+        DrawClues();
+        DrawControls();
+        DrawPercentDone();
+        Console.SetCursorPosition(66, 2);
+        Console.Write("Treasure");
+        Console.SetCursorPosition(70, 3);
+        Console.Write("Catte");
+        Console.SetCursorPosition(3, 22);
+        Console.Write("Created by Tyll'a");
     }
 
     static void Main(string[] args)
     {
+        ResetMatrix();
         do
         {
             DrawUi();
