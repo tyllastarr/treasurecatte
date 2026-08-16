@@ -117,7 +117,6 @@ class Program
             }
 
             AddClue("The combination is between " + lowerBound + " and " + upperBound + ".");
-            Console.Write(""); // TODO: Debug line
         }
         catch (Exception e)
         {
@@ -238,7 +237,7 @@ class Program
             Console.SetCursorPosition(38, 19);
             Console.Write("First or second digit?");
 
-            switch (Console.ReadKey().KeyChar)
+            switch (Console.ReadKey(true).KeyChar)
             {
                 case '1':
                     validInput = true;
@@ -249,7 +248,6 @@ class Program
                     inputInt = 2;
                     break;
                 default:
-                    Console.WriteLine("Invalid entry.");
                     validInput = false;
                     break;
             }
@@ -268,7 +266,7 @@ class Program
             Console.SetCursorPosition(38, 19);
             Console.Write(prompt);
 
-            switch (Console.ReadKey().KeyChar)
+            switch (Console.ReadKey(true).KeyChar)
             {
                 case '0':
                     inputInt = 0;
@@ -301,16 +299,12 @@ class Program
                     inputInt = 9;
                     break;
                 default:
-                    Console.WriteLine("Invalid entry.");
                     break;
             }
 
             if(inputInt <= maxTarget)
             {
                 validInput = true;
-            } else
-            {
-                Console.WriteLine("Invalid entry.");
             }
 
         } while (validInput == false);
@@ -338,13 +332,7 @@ class Program
                 if(inputInt >= 10 && inputInt <= 99)
                 {
                     validInput = true;
-                } else
-                {
-                    Console.WriteLine("Invalid entry.");
-                }
-            } else
-            {
-                Console.WriteLine("Invalid entry.");
+                } 
             }
 
         } while (validInput == false);
@@ -377,7 +365,6 @@ class Program
 
     static void AddClue(string newClue)
     {
-        Console.WriteLine($"AddClue: numClues={numClues} -> writing index {numClues}: \"{newClue}\"");
         if (numClues >= 0 && numClues < clueList.Length)
         {
             clueList[numClues] = newClue;
@@ -385,10 +372,6 @@ class Program
             {
                 numClues++;
             }
-        }
-        else
-        {
-            Console.WriteLine($"AddClue: out-of-range numClues={numClues}, ignoring new clue");
         }
     }
 
@@ -486,6 +469,8 @@ class Program
         Console.SetCursorPosition(38, 16);
         Console.Write("T: Three Number Sequence");
         Console.SetCursorPosition(38, 17);
+        Console.Write("R: Reset");
+        Console.SetCursorPosition(38, 18);
         Console.Write("X: Exit");
 
 
@@ -525,7 +510,7 @@ class Program
         {
             DrawUi();
 
-            inputChar = Char.ToUpper(Console.ReadKey().KeyChar);
+            inputChar = Char.ToUpper(Console.ReadKey(true).KeyChar);
 
             switch (inputChar)
             {
@@ -558,7 +543,6 @@ class Program
                     break;
 
                 default:
-                    Console.WriteLine("Invalid entry.");
                     break;
 
             }
