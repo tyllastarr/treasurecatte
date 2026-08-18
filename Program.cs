@@ -6,6 +6,7 @@ class Program
 {
     static NumberMatrix matrix = new NumberMatrix();
     static int numClues = 0;
+    static int maxClues = 6;
     static string[] clueList = new string[6];
     static readonly ReadOnlyCollection<int> numFor100 = new ReadOnlyCollection<int>(new[] { 1, 3, 7, 15, 31, 63 });
     static UiElement currentClues = new UiElement(6, 59, "CURRENT CLUES");
@@ -142,7 +143,6 @@ class Program
             }
 
             AddClue("One of the two digits is " + target + ".");
-            Console.Write(""); // TODO: Debug line
         }
         catch (Exception e)
         {
@@ -340,7 +340,7 @@ class Program
         return inputInt;
     }
 
-    static int FindPercentDone()
+    static int FindPercentDone() // TODO: Add code for fewer than 6 clues
     {
         int count = 0;
 
@@ -363,7 +363,7 @@ class Program
         }
     }
 
-    static void AddClue(string newClue)
+    static void AddClue(string newClue) // TODO: Add code for fewer than 6 clues
     {
         if (numClues >= 0 && numClues < clueList.Length)
         {
@@ -388,6 +388,7 @@ class Program
         }
 
         numClues = 0;
+        maxClues = FindTargetDigit(6, "How many attempts allowed? ");
     }
 
     static void ResetPromptArea()
@@ -505,6 +506,7 @@ class Program
 
     static void Main(string[] args)
     {
+        DrawUi();
         ResetMatrix();
         do
         {
