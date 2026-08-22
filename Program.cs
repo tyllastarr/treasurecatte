@@ -340,7 +340,7 @@ class Program
         return inputInt;
     }
 
-    static int FindPercentDone() // TODO: Add code for fewer than 6 clues
+    static int FindPercentDone()
     {
         int count = 0;
 
@@ -352,7 +352,7 @@ class Program
             }
         }
 
-        double percent = (double)numFor100[5 - numClues] / count;
+        double percent = (double)numFor100[maxClues - 1 - numClues] / count;
 
         if (percent < 1)
         {
@@ -363,12 +363,12 @@ class Program
         }
     }
 
-    static void AddClue(string newClue) // TODO: Add code for fewer than 6 clues
+    static void AddClue(string newClue)
     {
-        if (numClues >= 0 && numClues < clueList.Length)
+        if (numClues >= 0 && numClues < maxClues)
         {
             clueList[numClues] = newClue;
-            if (numClues < clueList.Length - 1)
+            if (numClues < maxClues - 1)
             {
                 numClues++;
             }
