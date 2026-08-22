@@ -23,30 +23,33 @@ class Program
     {
         try
         {
-            switch (digitPlace)
+            if (clueList[maxClues - 1] == "")
             {
-                case 1:
-                    for (int i = 10; i <= 99; i++)
-                    {
-                        if (((i / 10) % 10) % 2 == 0)
+                switch (digitPlace)
+                {
+                    case 1:
+                        for (int i = 10; i <= 99; i++)
                         {
-                            matrix.SetPossible(i, false);
+                            if (((i / 10) % 10) % 2 == 0)
+                            {
+                                matrix.SetPossible(i, false);
+                            }
                         }
-                    }
-                    AddClue("The first digit is odd.");
-                    break;
-                case 2:
-                    for (int i = 10; i <= 99; i++)
-                    {
-                        if ((i % 10) % 2 == 0)
+                        AddClue("The first digit is odd.");
+                        break;
+                    case 2:
+                        for (int i = 10; i <= 99; i++)
                         {
-                            matrix.SetPossible(i, false);
+                            if ((i % 10) % 2 == 0)
+                            {
+                                matrix.SetPossible(i, false);
+                            }
                         }
-                    }
-                    AddClue("The second digit is odd.");
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException("Error: Invalid digit placement.");
+                        AddClue("The second digit is odd.");
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException("Error: Invalid digit placement.");
+                }
             }
         }
         catch (Exception e)
@@ -60,30 +63,33 @@ class Program
     {
         try
         {
-            switch (digitPlace)
+            if (clueList[maxClues - 1] == "")
             {
-                case 1:
-                    for (int i = 10; i <= 99; i++)
-                    {
-                        if (((i / 10) % 10) % 2 == 1)
+                switch (digitPlace)
+                {
+                    case 1:
+                        for (int i = 10; i <= 99; i++)
                         {
-                            matrix.SetPossible(i, false);
+                            if (((i / 10) % 10) % 2 == 1)
+                            {
+                                matrix.SetPossible(i, false);
+                            }
                         }
-                    }
-                    AddClue("The first digit is even.");
-                    break;
-                case 2:
-                    for (int i = 10; i <= 99; i++)
-                    {
-                        if ((i % 10) % 2 == 1)
+                        AddClue("The first digit is even.");
+                        break;
+                    case 2:
+                        for (int i = 10; i <= 99; i++)
                         {
-                            matrix.SetPossible(i, false);
+                            if ((i % 10) % 2 == 1)
+                            {
+                                matrix.SetPossible(i, false);
+                            }
                         }
-                    }
-                    AddClue("The second digit is even.");
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException("Error: Invalid digit placement.");
+                        AddClue("The second digit is even.");
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException("Error: Invalid digit placement.");
+                }
             }
         }
         catch (Exception e)
@@ -96,28 +102,31 @@ class Program
     {
         try
         {
-            if (lowerBound < 10 || lowerBound > 99) // Check to see if lower bound is out of range
+            if (clueList[maxClues - 1] == "")
             {
-                throw new ArgumentOutOfRangeException("Error: Lower bound must be between 10 and 99.");
-            }
-            if (upperBound < 10 || upperBound > 99) // Check to see if upper bound is out of range
-            {
-                throw new ArgumentOutOfRangeException("Error: Upper bound must be between 10 and 99.");
-            }
-
-            for (int i = 10; i <= 99; i++)
-            {
-                if (i < lowerBound)
+                if (lowerBound < 10 || lowerBound > 99) // Check to see if lower bound is out of range
                 {
-                    matrix.SetPossible(i, false);
+                    throw new ArgumentOutOfRangeException("Error: Lower bound must be between 10 and 99.");
                 }
-                if (i > upperBound)
+                if (upperBound < 10 || upperBound > 99) // Check to see if upper bound is out of range
                 {
-                    matrix.SetPossible(i, false);
+                    throw new ArgumentOutOfRangeException("Error: Upper bound must be between 10 and 99.");
                 }
-            }
 
-            AddClue("The combination is between " + lowerBound + " and " + upperBound + ".");
+                for (int i = 10; i <= 99; i++)
+                {
+                    if (i < lowerBound)
+                    {
+                        matrix.SetPossible(i, false);
+                    }
+                    if (i > upperBound)
+                    {
+                        matrix.SetPossible(i, false);
+                    }
+                }
+
+                AddClue("The combination is between " + lowerBound + " and " + upperBound + ".");
+            }
         }
         catch (Exception e)
         {
@@ -129,20 +138,23 @@ class Program
     {
         try
         {
-            if (target < 0 || target > 9) // Out of range
+            if (clueList[maxClues - 1] == "")
             {
-                throw new ArgumentOutOfRangeException("Error: Target number must be between 0 and 9.");
-            }
-
-            for (int i = 10; i <= 99; i++)
-            {
-                if (((i / 10) % 10) != target && (i % 10) != target)
+                if (target < 0 || target > 9) // Out of range
                 {
-                    matrix.SetPossible(i, false);
+                    throw new ArgumentOutOfRangeException("Error: Target number must be between 0 and 9.");
                 }
-            }
 
-            AddClue("One of the two digits is " + target + ".");
+                for (int i = 10; i <= 99; i++)
+                {
+                    if (((i / 10) % 10) != target && (i % 10) != target)
+                    {
+                        matrix.SetPossible(i, false);
+                    }
+                }
+
+                AddClue("One of the two digits is " + target + ".");
+            }
         }
         catch (Exception e)
         {
@@ -153,35 +165,38 @@ class Program
     {
         try
         {
-            if (target < 0 || target > 7) // Out of range
+            if (clueList[maxClues - 1] == "")
             {
-                throw new ArgumentOutOfRangeException("Error: Target number must be between 0 and 7.");
-            }
+                if (target < 0 || target > 7) // Out of range
+                {
+                    throw new ArgumentOutOfRangeException("Error: Target number must be between 0 and 7.");
+                }
 
-            switch (digitPlace)
-            {
-                case 1:
-                    for (int i = 10; i <= 99; i++)
-                    {
-                        if (((i / 10) % 10) != target && ((i / 10) % 10) != target + 1 && ((i / 10) % 10) != target + 2)
+                switch (digitPlace)
+                {
+                    case 1:
+                        for (int i = 10; i <= 99; i++)
                         {
-                            matrix.SetPossible(i, false);
+                            if (((i / 10) % 10) != target && ((i / 10) % 10) != target + 1 && ((i / 10) % 10) != target + 2)
+                            {
+                                matrix.SetPossible(i, false);
+                            }
                         }
-                    }
-                    AddClue("The first digit is " + target + ", " + (target + 1) + ", or " + (target + 2) + ".");
-                    break;
-                case 2:
-                    for (int i = 10; i <= 99; i++)
-                    {
-                        if ((i % 10) != target && (i % 10) != target + 1 && (i % 10) != target + 2)
+                        AddClue("The first digit is " + target + ", " + (target + 1) + ", or " + (target + 2) + ".");
+                        break;
+                    case 2:
+                        for (int i = 10; i <= 99; i++)
                         {
-                            matrix.SetPossible(i, false);
+                            if ((i % 10) != target && (i % 10) != target + 1 && (i % 10) != target + 2)
+                            {
+                                matrix.SetPossible(i, false);
+                            }
                         }
-                    }
-                    AddClue("The second digit is " + target + ", " + (target + 1) + ", or " + (target + 2) + ".");
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException("Error: Invalid digit placement.");
+                        AddClue("The second digit is " + target + ", " + (target + 1) + ", or " + (target + 2) + ".");
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException("Error: Invalid digit placement.");
+                }
             }
         }
         catch (Exception e)
