@@ -284,6 +284,7 @@ class Program
         do
         {
             ResetPromptArea();
+            Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
             Console.SetCursorPosition(38, 20);
             Console.Write("First or second digit?");
@@ -313,6 +314,7 @@ class Program
         do
         {
             ResetPromptArea();
+            Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
             Console.SetCursorPosition(38, 20);
             Console.Write(prompt);
@@ -373,6 +375,7 @@ class Program
         do
         {
             ResetPromptArea();
+            Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
             Console.SetCursorPosition(38, 20);
             Console.Write(prompt);
@@ -396,6 +399,7 @@ class Program
         do
         {
             ResetPromptArea();
+            Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
             Console.SetCursorPosition(38, 20);
             Console.Write(prompt);
@@ -493,12 +497,15 @@ class Program
         {
             if(i == median)
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.BackgroundColor = ConsoleColor.Yellow;
+                Console.ForegroundColor = ConsoleColor.Black;
             } else if(matrix.GetPossible(i) == false)
             {
+                Console.BackgroundColor = ConsoleColor.Black;
                 Console.ForegroundColor = ConsoleColor.Black;
             } else
             {
+                Console.BackgroundColor = ConsoleColor.Black;
                 Console.ForegroundColor = ConsoleColor.White;
             }
 
@@ -520,6 +527,7 @@ class Program
         do
         {
             Console.SetCursorPosition(2, position + 1);
+            Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write(position + ": " + clueList[position - 1]);
             position++;
@@ -528,6 +536,7 @@ class Program
 
     static void DrawControls()
     {
+        Console.BackgroundColor = ConsoleColor.Black;
         Console.ForegroundColor = ConsoleColor.White;
         Console.SetCursorPosition(38, 12);
         Console.Write("O: Odd Number");
@@ -549,6 +558,7 @@ class Program
 
     static void DrawPercentDone()
     {
+        Console.BackgroundColor = ConsoleColor.Black;
         Console.ForegroundColor = ConsoleColor.White;
         Console.SetCursorPosition(69, 7);
         Console.Write(FindPercentDone() + "%");
@@ -556,6 +566,7 @@ class Program
 
     static void DrawUi()
     {
+        Console.BackgroundColor = ConsoleColor.Black;
         Console.ForegroundColor = ConsoleColor.White;
         DrawUiElement(currentClues, 1, 1);
         DrawUiElement(possibleNumbers, 1, 10);
