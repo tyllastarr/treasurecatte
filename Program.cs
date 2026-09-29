@@ -13,6 +13,7 @@ class Program
     static UiElement possibleNumbers = new UiElement(9, 31, "POSSIBLE NUMBERS");
     static UiElement controls = new UiElement(9, 40, "CONTROLS");
     static UiElement percentDone = new UiElement(1, 13, "% TO OPEN");
+    static UiElement attempts = new UiElement(1, 13, "ATTEMPTS");
     static bool exit = false;
     static char inputChar;
     static bool validInput;
@@ -437,6 +438,11 @@ class Program
         }
     }
 
+    static int FindNumAttempts()
+    {
+        return maxClues - numClues;
+    }
+
     static void AddClue(string newClue)
     {
         if (numClues >= 0 && numClues < maxClues)
@@ -560,8 +566,16 @@ class Program
     {
         Console.BackgroundColor = ConsoleColor.Black;
         Console.ForegroundColor = ConsoleColor.White;
-        Console.SetCursorPosition(69, 7);
+        Console.SetCursorPosition(69, 9);
         Console.Write(FindPercentDone() + "%");
+    }
+
+    static void DrawAttempts()
+    {
+        Console.BackgroundColor = ConsoleColor.Black;
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.SetCursorPosition(67, 6);
+        Console.Write(FindNumAttempts() + " LEFT");
     }
 
     static void DrawUi()
@@ -571,11 +585,13 @@ class Program
         DrawUiElement(currentClues, 1, 1);
         DrawUiElement(possibleNumbers, 1, 10);
         DrawUiElement(controls, 37, 11);
-        DrawUiElement(percentDone, 63, 6);
+        DrawUiElement(percentDone, 63, 8);
+        DrawUiElement(attempts, 63, 5);
         DrawNumbers();
         DrawClues();
         DrawControls();
         DrawPercentDone();
+        DrawAttempts();
         Console.SetCursorPosition(66, 2);
         Console.Write("Treasure");
         Console.SetCursorPosition(70, 3);
