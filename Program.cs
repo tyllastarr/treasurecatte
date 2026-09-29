@@ -115,17 +115,17 @@ class Program
 
                 for (int i = 10; i <= 99; i++)
                 {
-                    if (i < lowerBound)
+                    if (i <= lowerBound)
                     {
                         matrix.SetPossible(i, false);
                     }
-                    if (i > upperBound)
+                    if (i >= upperBound)
                     {
                         matrix.SetPossible(i, false);
                     }
                 }
 
-                AddClue("The combination is between " + lowerBound + " and " + upperBound + ".");
+                AddClue("The combination is greater than " + lowerBound + " and less than " + upperBound + ".");
             }
         }
         catch (Exception e)
