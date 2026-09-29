@@ -205,6 +205,42 @@ class Program
         }
     }
 
+    static void GuessResult(int guess, int direction)
+    {
+        try
+        {
+            switch(direction) // Positive means greater than, negative means less than.  Zero should return an error.
+            {
+                case 0:
+                    throw new ArgumentOutOfRangeException("Error: Direction value cannot be zero.");
+                case int i when i > 0:
+                    for (int j = 10; j <= 99; j++)
+                    {
+                        if(j <= guess)
+                        {
+                            matrix.SetPossible(j, false);
+                        }
+                    }
+                    AddClue("The combination is greater than " + guess + ".");
+                    break;
+                case int i when i < 0:
+                    for (int j = 10; j <= 99; j++)
+                    {
+                        if (j >= guess)
+                        {
+                            matrix.SetPossible(j, false);
+                        }
+                    }
+                    AddClue("The combination is less than " + guess + ".");
+                    break;
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+    }
+
     static int FindMedian()
     {
         int numTrue = 0;
@@ -327,7 +363,7 @@ class Program
         return inputInt;
     }
 
-    static int InputNumber(string prompt = "Please enter the number:")
+    static int InputNumber(string prompt = "Please enter the number: ")
     {
         string inputStr;
         int inputInt;
@@ -353,6 +389,25 @@ class Program
         } while (validInput == false);
 
         return inputInt;
+    }
+
+    static int InputDirection(string prompt = "Please enter the direction (L/G) ")
+    {
+        do
+        {
+            ResetPromptArea();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.SetCursorPosition(38, 20);
+            Console.Write(prompt);
+
+            switch (Console.ReadKey(true).KeyChar)
+            {
+                case 'L' or 'l':
+                    return -1;
+                case 'G' or 'g':
+                    return 1;
+            }
+        } while (true);
     }
 
     static int FindPercentDone()
@@ -485,12 +540,11 @@ class Program
         Console.SetCursorPosition(38, 16);
         Console.Write("T: Three Number Sequence");
         Console.SetCursorPosition(38, 17);
-        Console.Write("R: Reset");
+        Console.Write("G: Guess Result");
         Console.SetCursorPosition(38, 18);
+        Console.Write("R: Reset");
+        Console.SetCursorPosition(38, 19);
         Console.Write("X: Exit");
-
-
-
     }
 
     static void DrawPercentDone()
@@ -557,6 +611,10 @@ class Program
 
                 case 'T': // Three number sequence
                     ThreeNumberSequence(FindDigitPlace(), FindTargetDigit(7));
+                    break;
+
+                case 'G': // Guess result
+                    GuessResult(InputNumber("Please enter the number guessed: "), InputDirection("Which direction?  (L)ess or (G)reater "));
                     break;
 
                 default:
