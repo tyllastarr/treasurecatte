@@ -11,7 +11,7 @@ class Program
     static readonly ReadOnlyCollection<int> numFor100 = new ReadOnlyCollection<int>(new[] { 1, 3, 7, 15, 31, 63 });
     static UiElement currentClues = new UiElement(6, 59, "CURRENT CLUES");
     static UiElement possibleNumbers = new UiElement(9, 31, "POSSIBLE NUMBERS");
-    static UiElement controls = new UiElement(8, 40, "CONTROLS");
+    static UiElement controls = new UiElement(9, 40, "CONTROLS");
     static UiElement percentDone = new UiElement(1, 13, "% TO OPEN");
     static bool exit = false;
     static char inputChar;
@@ -249,7 +249,7 @@ class Program
         {
             ResetPromptArea();
             Console.ForegroundColor = ConsoleColor.White;
-            Console.SetCursorPosition(38, 19);
+            Console.SetCursorPosition(38, 20);
             Console.Write("First or second digit?");
 
             switch (Console.ReadKey(true).KeyChar)
@@ -278,7 +278,7 @@ class Program
         {
             ResetPromptArea();
             Console.ForegroundColor = ConsoleColor.White;
-            Console.SetCursorPosition(38, 19);
+            Console.SetCursorPosition(38, 20);
             Console.Write(prompt);
 
             switch (Console.ReadKey(true).KeyChar)
@@ -338,7 +338,7 @@ class Program
         {
             ResetPromptArea();
             Console.ForegroundColor = ConsoleColor.White;
-            Console.SetCursorPosition(38, 19);
+            Console.SetCursorPosition(38, 20);
             Console.Write(prompt);
             inputStr = Console.ReadLine();
 
@@ -408,7 +408,7 @@ class Program
 
     static void ResetPromptArea()
     {
-        Console.SetCursorPosition(38, 19);
+        Console.SetCursorPosition(38, 20);
         Console.Write("                                         ");
     }
 
