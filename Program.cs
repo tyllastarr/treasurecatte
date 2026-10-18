@@ -11,8 +11,9 @@ class Program
     static readonly ReadOnlyCollection<int> numFor100 = new ReadOnlyCollection<int>(new[] { 1, 3, 7, 15, 31, 63 });
     static UiElement currentClues = new UiElement(6, 59, "CURRENT CLUES");
     static UiElement possibleNumbers = new UiElement(9, 31, "POSSIBLE NUMBERS");
-    static UiElement controls = new UiElement(8, 40, "CONTROLS");
+    static UiElement controls = new UiElement(9, 40, "CONTROLS");
     static UiElement percentDone = new UiElement(1, 13, "% TO OPEN");
+    static UiElement attempts = new UiElement(1, 13, "ATTEMPTS");
     static bool exit = false;
     static char inputChar;
     static bool validInput;
@@ -115,17 +116,17 @@ class Program
 
                 for (int i = 10; i <= 99; i++)
                 {
-                    if (i < lowerBound)
+                    if (i <= lowerBound)
                     {
                         matrix.SetPossible(i, false);
                     }
-                    if (i > upperBound)
+                    if (i >= upperBound)
                     {
                         matrix.SetPossible(i, false);
                     }
                 }
 
-                AddClue("The combination is between " + lowerBound + " and " + upperBound + ".");
+                AddClue("The combination is greater than " + lowerBound + " and less than " + upperBound + ".");
             }
         }
         catch (Exception e)
@@ -205,6 +206,42 @@ class Program
         }
     }
 
+    static void GuessResult(int guess, int direction)
+    {
+        try
+        {
+            switch(direction) // Positive means greater than, negative means less than.  Zero should return an error.
+            {
+                case 0:
+                    throw new ArgumentOutOfRangeException("Error: Direction value cannot be zero.");
+                case int i when i > 0:
+                    for (int j = 10; j <= 99; j++)
+                    {
+                        if(j <= guess)
+                        {
+                            matrix.SetPossible(j, false);
+                        }
+                    }
+                    AddClue("The combination is greater than " + guess + ".");
+                    break;
+                case int i when i < 0:
+                    for (int j = 10; j <= 99; j++)
+                    {
+                        if (j >= guess)
+                        {
+                            matrix.SetPossible(j, false);
+                        }
+                    }
+                    AddClue("The combination is less than " + guess + ".");
+                    break;
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+    }
+
     static int FindMedian()
     {
         int numTrue = 0;
@@ -248,8 +285,9 @@ class Program
         do
         {
             ResetPromptArea();
+            Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
-            Console.SetCursorPosition(38, 19);
+            Console.SetCursorPosition(38, 20);
             Console.Write("First or second digit?");
 
             switch (Console.ReadKey(true).KeyChar)
@@ -277,8 +315,9 @@ class Program
         do
         {
             ResetPromptArea();
+            Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
-            Console.SetCursorPosition(38, 19);
+            Console.SetCursorPosition(38, 20);
             Console.Write(prompt);
 
             switch (Console.ReadKey(true).KeyChar)
@@ -327,7 +366,7 @@ class Program
         return inputInt;
     }
 
-    static int InputNumber(string prompt = "Please enter the number:")
+    static int InputNumber(string prompt = "Please enter the number: ")
     {
         string inputStr;
         int inputInt;
@@ -337,8 +376,9 @@ class Program
         do
         {
             ResetPromptArea();
+            Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
-            Console.SetCursorPosition(38, 19);
+            Console.SetCursorPosition(38, 20);
             Console.Write(prompt);
             inputStr = Console.ReadLine();
 
@@ -353,6 +393,26 @@ class Program
         } while (validInput == false);
 
         return inputInt;
+    }
+
+    static int InputDirection(string prompt = "Please enter the direction (L/G) ")
+    {
+        do
+        {
+            ResetPromptArea();
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.SetCursorPosition(38, 20);
+            Console.Write(prompt);
+
+            switch (Console.ReadKey(true).KeyChar)
+            {
+                case 'L' or 'l':
+                    return -1;
+                case 'G' or 'g':
+                    return 1;
+            }
+        } while (true);
     }
 
     static int FindPercentDone()
@@ -376,6 +436,11 @@ class Program
         {
             return 100;
         }
+    }
+
+    static int FindNumAttempts()
+    {
+        return maxClues - numClues;
     }
 
     static void AddClue(string newClue)
@@ -408,7 +473,7 @@ class Program
 
     static void ResetPromptArea()
     {
-        Console.SetCursorPosition(38, 19);
+        Console.SetCursorPosition(38, 20);
         Console.Write("                                         ");
     }
 
@@ -438,12 +503,15 @@ class Program
         {
             if(i == median)
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.BackgroundColor = ConsoleColor.Yellow;
+                Console.ForegroundColor = ConsoleColor.Black;
             } else if(matrix.GetPossible(i) == false)
             {
+                Console.BackgroundColor = ConsoleColor.Black;
                 Console.ForegroundColor = ConsoleColor.Black;
             } else
             {
+                Console.BackgroundColor = ConsoleColor.Black;
                 Console.ForegroundColor = ConsoleColor.White;
             }
 
@@ -465,6 +533,7 @@ class Program
         do
         {
             Console.SetCursorPosition(2, position + 1);
+            Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write(position + ": " + clueList[position - 1]);
             position++;
@@ -473,6 +542,7 @@ class Program
 
     static void DrawControls()
     {
+        Console.BackgroundColor = ConsoleColor.Black;
         Console.ForegroundColor = ConsoleColor.White;
         Console.SetCursorPosition(38, 12);
         Console.Write("O: Odd Number");
@@ -485,32 +555,43 @@ class Program
         Console.SetCursorPosition(38, 16);
         Console.Write("T: Three Number Sequence");
         Console.SetCursorPosition(38, 17);
-        Console.Write("R: Reset");
+        Console.Write("G: Guess Result");
         Console.SetCursorPosition(38, 18);
+        Console.Write("R: Reset");
+        Console.SetCursorPosition(38, 19);
         Console.Write("X: Exit");
-
-
-
     }
 
     static void DrawPercentDone()
     {
+        Console.BackgroundColor = ConsoleColor.Black;
         Console.ForegroundColor = ConsoleColor.White;
-        Console.SetCursorPosition(69, 7);
+        Console.SetCursorPosition(69, 9);
         Console.Write(FindPercentDone() + "%");
+    }
+
+    static void DrawAttempts()
+    {
+        Console.BackgroundColor = ConsoleColor.Black;
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.SetCursorPosition(67, 6);
+        Console.Write(FindNumAttempts() + " LEFT");
     }
 
     static void DrawUi()
     {
+        Console.BackgroundColor = ConsoleColor.Black;
         Console.ForegroundColor = ConsoleColor.White;
         DrawUiElement(currentClues, 1, 1);
         DrawUiElement(possibleNumbers, 1, 10);
         DrawUiElement(controls, 37, 11);
-        DrawUiElement(percentDone, 63, 6);
+        DrawUiElement(percentDone, 63, 8);
+        DrawUiElement(attempts, 63, 5);
         DrawNumbers();
         DrawClues();
         DrawControls();
         DrawPercentDone();
+        DrawAttempts();
         Console.SetCursorPosition(66, 2);
         Console.Write("Treasure");
         Console.SetCursorPosition(70, 3);
@@ -557,6 +638,10 @@ class Program
 
                 case 'T': // Three number sequence
                     ThreeNumberSequence(FindDigitPlace(), FindTargetDigit(7));
+                    break;
+
+                case 'G': // Guess result
+                    GuessResult(InputNumber("Please enter the number guessed: "), InputDirection("Which direction?  (L)ess or (G)reater "));
                     break;
 
                 default:
