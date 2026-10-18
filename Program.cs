@@ -206,7 +206,7 @@ class Program
         }
     }
 
-    static void GuessResult(int guess, int direction)
+    static void GuessResult(int direction, int guess)
     {
         try
         {
@@ -641,7 +641,7 @@ class Program
                     break;
 
                 case 'G': // Guess result
-                    GuessResult(InputNumber("Please enter the number guessed: "), InputDirection("Which direction?  (L)ess or (G)reater "));
+                    GuessResult(InputDirection("Which direction?  (L)ess or (G)reater "), InputNumber("Please enter the number guessed: "));
                     break;
 
                 default:
